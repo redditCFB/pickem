@@ -1,0 +1,7 @@
+node_modules
+.DS_Store
+dist
+.env
+.mods-api-secret
+.pdf-venv
+scripts/.generate-domain-pdf.py

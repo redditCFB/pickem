@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "pickem-game",
+  "post": {
+    "dir": "dist/client",
+    "entrypoints": {
+      "default": {
+        "inline": true,
+        "entry": "splash.html"
+      },
+      "game": {
+        "entry": "game.html"
+      }
+    }
+  },
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "permissions": {
+    "http": {
+      "enable": true,
+      "domains": [
+        "scoreboard.redditcfb.com",
+        "mods.redditcfb.com",
+        "cdn.redditcfb.com"
+      ]
+    },
+    "media": false
+  },
+  "settings": {
+    "global": {
+      "modsApiSecret": {
+        "type": "string",
+        "label": "Mods API Secret",
+        "helpText": "Bearer token for mods.redditcfb.com/api/devvit/v1. Set via: devvit settings set modsApiSecret",
+        "isSecret": true
+      }
+    },
+    "subreddit": {
+      "pickemGroupId": {
+        "type": "number",
+        "label": "Pick'em group ID",
+        "helpText": "MySQL group_id for this sub's pick'em contest (6 = r/CFB, 473 = r/fcs).",
+        "defaultValue": 6
+      },
+      "inAppSlateConfig": {
+        "type": "boolean",
+        "label": "Configure slate in app",
+        "helpText": "Moderators choose weekly games in the Setup tab inside each Pick 'Em post.",
+        "defaultValue": true
+      }
+    }
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Publish Pick 'Em Post",
+        "description": "Create the weekly Pick 'Em post using the configured slate for this subreddit.",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/publish-pickem"
+      }
+    ]
+  },
+  "forms": {
+    "publishPickem": "/internal/form/publish-pickem"
+  },
+  "triggers": {
+    "onAppInstall": "/internal/triggers/on-app-install"
+  },
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build"
+  },
+  "dev": {
+    "subreddit": "pickem_game_dev"
+  }
+}
