@@ -65,11 +65,34 @@ If you skip step 1–3, `npm run upload` will open the same registration wizard 
 npm run dev            # playtest in a subreddit (after first upload)
 ```
 
+### Local UI
+
+Iterate on the React screens in a browser without uploading to Reddit:
+
+```bash
+npm run dev:client
+```
+
+Opens http://localhost:7474/game.html with hot reload. Also available:
+
+- http://localhost:7474/splash.html — feed preview; click through to the game view
+- http://localhost:7474/mod-setup.html — slate picker
+
+The page uses in-memory mock games from `src/server/lib/mockData.ts`. Picks and slate edits last until you stop the dev server. They are not written to Redis or the mods API.
+
+Append a query to preview another viewer (the default is a logged-in moderator):
+
+- `?as=member` — picks only, no Setup tab
+- `?as=logged-out` — signed-out state
+
+`npm run dev` is still required to exercise Reddit auth, Redis, and the live scoreboard and mods APIs.
+
 ## Commands
 
 | Command | Description |
 |---------|-------------|
 | `npm run dev` | Devvit playtest (live on Reddit) |
+| `npm run dev:client` | Local React UI with hot reload (mock data) |
 | `npm run build` | Build client + server bundles |
 | `npm run deploy` | Type-check, lint, upload to Reddit |
 | `npm run launch` | Deploy + publish for review |
